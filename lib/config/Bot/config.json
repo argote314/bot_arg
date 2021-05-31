@@ -1,7 +1,7 @@
 {
-	"lang": "pt",
-	"owner": ["551899*****@c.us", "551398....@c.us"],
-	"ddi": "55",
+	"lang": "es",
+	"owner": ["51916659000@c.us", "51931366029@c.us"],
+	"ddi": "51",
 	"prefix": "/",
 	"apifla": "API-KEY NOFLASH",
 	"nobg": "API-KEY REMOVEBG",
@@ -9,11 +9,11 @@
 	"deepai": "API-KEY DEEPAI",
 	"gpLimit": "10",
 	"memberReq": "1",
-	"author": "🎁 Iris - bit.ly/2QvFo78 ☆",
-	"pack": "🔰 Legião Z - bit.ly/3owVJoB ⚜️",
+	"author": "⟦⸙ꪶ•Λ̸Я̸G̸Ө̸Ŧ̸Σ̸₂₀₁₉•ꫂ⸙⟧",
+	"pack": "🔰Anime is life⚜️",
 	"userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36",
-	"timePlay": "30",
-	"antiFlood": "10",
-	"maxSize": "16",
+	"timePlay": "10",
+	"antiFlood": "5",
+	"maxSize": "50",
 	"WinTime": "60"
 }
