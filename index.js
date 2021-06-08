@@ -86,7 +86,8 @@ const start = async (kill = new Client()) => {
 		const { contact, groupMetadata, name } = gChat
 		try {
 			if (event.action == 'add') {
-				await kill.sendText(event.chat, `E TU TA AQUI MENÓ?! TU TA AQUI DNV MENÓ??`)
+				if (isAnti && fuck && !isMyBot) {
+					await kill.sendText(event.chat, `E TU TA AQUI MENÓ?! TU TA AQUI DNV MENÓ??`)
 						await sleep(2000)
 						await kill.removeParticipant(event.chat, event.who)
 						console.log(color('[BLACKLIST]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) foi banido do ${name} por ter sido colocado na blacklist...`, 'yellow'))
