@@ -86,76 +86,56 @@ const start = async (kill = new Client()) => {
 		const { contact, groupMetadata, name } = gChat
 		try {
 			if (event.action == 'add') {
-				if (isAnti && fuck && !isMyBot) {
-					await kill.sendText(event.chat, mylang().entrace())
-					await sleep(2000)
-					await kill.removeParticipant(event.chat, event.who)
-					await kill.contactBlock(event.who) // Evita ser travado por putinhos
-					console.log(color('[BLACKLIST]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) foi banido do ${name} por ter sido colocado na blacklist...`, 'yellow'))
-				} else if (isFake && !fake && !isMyBot) {
-					await kill.sendTextWithMentions(event.chat, mylang().nofake(event))
-					await sleep(4000) // Anti-fake e Black-List não tem anti-flood por segurança, mexa com a var welcOn para inserir
-					await kill.removeParticipant(event.chat, event.who)
-					await kill.contactBlock(event.who) // Evita ser travado por putinhos
-					console.log(color('[FAKE]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) foi banido do ${name} por usar número falso ou ser de fora do país...`, 'yellow'))
-				} else if (isWelkom && !isMyBot && welcOn == 0 && !fuck && fake) {
-					welcOn = 1
+				await kill.sendText(event.chat, `E TU TA AQUI MENÓ?! TU TA AQUI DNV MENÓ??`)
+						await sleep(2000)
+						await kill.removeParticipant(event.chat, event.who)
+						console.log(color('[BLACKLIST]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) foi banido do ${name} por ter sido colocado na blacklist...`, 'yellow'))
+					} else if (isFake && !fake && !isMyBot) {
+						await kill.sendTextWithMentions(event.chat, `Olá @${event.who.replace('@c.us', '')}, como parte de nuestro sistema de seguridad, los números de fuera de Brasil están prohibidos, si no eres alguien malo y quieres estar en el grupo pacíficamente, por favor contacta a los administradores 😉.\n\nHello @${event.who.replace('@c.us', '')}, as part of our security system, numbers outside Brazil are banned, if you are not someone bad and want to be in the group peacefully, please contact the administrators 😉.\n\nHalo @${event.who.replace('@c.us', '')}, sebagai bagian dari sistem keamanan kami, nomor di luar Brasil dilarang, jika Anda bukan orang jahat dan ingin berada di grup dengan damai, silakan hubungi administrator 😉.\n\nHola @${event.who.replace('@c.us', '')}, como parte de nuestro sistema de seguridad, los números fuera de Brasil están prohibidos, si no eres alguien malo y quieres estar en el grupo pacíficamente, por favor contacte a los administradores 😉.`)
+						await sleep(4000)
+						await kill.removeParticipant(event.chat, event.who)
+						console.log(color('[FAKE]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) foi banido do ${name} por usar número falso ou ser de fora do país...`, 'yellow'))
+					} else if (isWelkom && !isMyBot) {
+						var profile = await kill.getProfilePicFromServer(event.who)
+						if (profile == '' || profile == undefined) profile = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTQcODjk7AcA4wb_9OLzoeAdpGwmkJqOYxEBA&usqp=CAU'
+						const welcomer = await new canvas.Welcome()
+							.setUsername(pushname)
+							.setDiscriminator(event.who.substring(6, 10))
+							.setMemberCount(groupMetadata.participants.length)
+							.setGuildName(name)
+							.setAvatar(profile)
+							.setColor('border', '#00100C')
+							.setColor('username-box', '#00100C')
+							.setColor('discriminator-box', '#00100C')
+							.setColor('message-box', '#00100C')
+							.setColor('title', '#00FFFF')
+							.setBackground('https://i.pinimg.com/originals/3d/4b/03/3d4b033c01c30b714f8710a57f46d900.jpg')
+							.toAttachment()
+							//await kill.sendPtt(event.chat, `./lib/media/audio/welcome.mp3`)
+						const base64 = `data:image/png;base64,${welcomer.toBuffer().toString('base64')}`
+						await kill.sendFile(event.chat, base64, 'welcome.png', `*❐❯─᤻─⃟᤻─᤻─᤻─᤻─᤻「⃞🌎⃞」─᤻─᤻─᤻─⃟᤻─᤻─᤻❮❐*\n\nBienvenido ${pushname}! A\n*┏━┅┅┅┅┅┅┄⟞⟦⟝┉┉┅┅┅┅━┓*\n${name}\n*┗━┅┅┅┅┅┅┅┄⟞⟦⟝┅┅┅┉┉━┛*\n\n_*Deseo que te diviertas y que sigas nuestras reglas!*_ ✅ \n\n*S᤻i᤻ n᤻e᤻c᤻e᤻s᤻it᤻a᤻ a᤻y᤻᤻u᤻d᤻a᤻*\n*❐⃟✓* Comuniquese con un administrador\n*❐⃟✓* Escriba ${config.prefix}menu para ver las opciones`)
+						console.log(color('[ENTROU]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) entro al grupo ${name}...`, 'yellow'))
+					}
+				} else if (event.action == 'remove' && isWelkom && !isMyBot) {
 					var profile = await kill.getProfilePicFromServer(event.who)
 					if (profile == '' || profile == undefined) profile = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTQcODjk7AcA4wb_9OLzoeAdpGwmkJqOYxEBA&usqp=CAU'
-					const welcomer = await new canvas.Welcome().setUsername(pushname)
-					.setDiscriminator(event.who.substring(6, 10))
-					.setMemberCount(groupMetadata.participants.length)
-					.setGuildName(name)
-					.setAvatar(profile)
-					.setText("title", `BEM VINDO`)
-					.setText("message", `VOCÊ ESTÁ NO {server}`)
-					.setText("member-count", `VOCÊ É O MEMBRO N° {count}`)
-					.setColor('border', '#00100C')
-					.setColor('username-box', '#00100C')
-					.setColor('discriminator-box', '#00100C')
-					.setColor('message-box', '#00100C')
-					.setColor('title', '#6577AF')
-					.setOpacity("username-box", 0.6)
-					.setOpacity("discriminator-box", 0.6)
-					.setOpacity("message-box", 0.6)
-					.setOpacity("border", 0.4)
-					.setBackground('https://images.wallpaperscraft.com/image/landscape_art_road_127350_1280x720.jpg')
-					.toAttachment()
-					const base64 = `data:image/png;base64,${welcomer.toBuffer().toString('base64')}`
-					await kill.sendFile(event.chat, base64, 'welcome.png', mylang().welcome(pushname, name))
-					await kill.sendPtt(event.chat, `./lib/media/audio/welcome.mp3`)
-					welcOn = 0
-					console.log(color('[ENTROU]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) entrou no grupo ${name}...`, 'yellow'))
+					const bye = await new canvas.Goodbye()
+						.setUsername(pushname)
+						.setDiscriminator(event.who.substring(6, 10))
+						.setMemberCount(groupMetadata.participants.length)
+						.setGuildName(name)
+						.setAvatar(profile)
+						.setColor('border', '#00100C')
+						.setColor('username-box', '#00100C')
+						.setColor('discriminator-box', '#00100C')
+						.setColor('message-box', '#00100C')
+						.setColor('title', '#00FFFF')
+						.setBackground('https://fondosmil.com/fondo/67366.jpg')
+						.toAttachment()
+					const base64 = `data:image/png;base64,${bye.toBuffer().toString('base64')}`
+					await kill.sendFile(event.chat, base64, 'welcome.png', `Disfrutamos mucho de su estadia en el grupo ${pushname}\nEsperamos volver a verlo pronto,bye.`)
+					console.log(color('[SAIU/BAN]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) se fue o fue expulsado del grupo ${name}...`, 'yellow'))
 				}
-			} else if (event.action == 'remove' && isWelkom && !isMyBot && abayo == 0 && !fuck && fake) {
-				abayo = 1
-				var profile = await kill.getProfilePicFromServer(event.who)
-				if (profile == '' || profile == undefined) profile = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTQcODjk7AcA4wb_9OLzoeAdpGwmkJqOYxEBA&usqp=CAU'
-				const bye = await new canvas.Goodbye().setUsername(pushname)
-				.setDiscriminator(event.who.substring(6, 10))
-				.setMemberCount(groupMetadata.participants.length)
-				.setGuildName(name)
-				.setAvatar(profile)
-				.setText("title", `ADEUS`)
-				.setText("message", `SAIU DO {server}`)
-				.setText("member-count", `ELE FOI O MEMBRO N° {count}`)
-				.setColor('border', '#00100C')
-				.setColor('username-box', '#00100C')
-				.setColor('discriminator-box', '#00100C')
-				.setColor('message-box', '#00100C')
-				.setColor('title', '#6577AF')
-				.setOpacity("username-box", 0.6)
-				.setOpacity("discriminator-box", 0.6)
-				.setOpacity("message-box", 0.6)
-				.setOpacity("border", 0.4)
-				.setBackground('https://images.wallpaperscraft.com/image/landscape_art_road_127350_1280x720.jpg')
-				.toAttachment()
-				const base64 = `data:image/png;base64,${bye.toBuffer().toString('base64')}`
-				await kill.sendFile(event.chat, base64, 'welcome.png', mylang().bye(pushname))
-				await kill.sendPtt(event.chat, `./lib/media/audio/bye.mp3`)
-				abayo = 0
-				console.log(color('[SAIU/BAN]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) saiu ou foi banido do grupo ${name}...`, 'yellow'))
-			}
 		} catch (err) { console.log(err);welcOn = 0;abayo = 0 }
 	})
 
