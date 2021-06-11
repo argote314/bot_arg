@@ -3914,7 +3914,28 @@ module.exports = kconfig = async (kill, message) => {
 				await kill.reply(from, mess.winjoken(theMove, args), id)
 			} else return await kill.reply(from, mess.losejoken(theMove), id)
 			break
+			/*
+	Cosas de argote
+	*/
+		case 'casamiento':
+			if (isGroupMsg && args.length == 1 && mentionedJidList.length !== 0) {
+				if (mentionedJidList.length !== 0) menUser = await kill.getContact(mentionedJidList[0])
+				var nombreDelNovio = quotedMsg ? quotedMsgObj.sender.pushname : (mentionedJidList.length == 0 ? menUser.pushname : pushname)
+				if (nombreDelNovio == undefined) nombreDelNovio = `@${author.replace('@c.us', '')} `
+				var consagrado = quotedMsg ? quotedMsgObj.sender.pushname : (mentionedJidList.length !== 0 ? menUser.pushname : pushname)
+				if (consagrado == undefined) consagrado =`wa.me/${arqs[1]}`
+				const bodasi = `Vivan los novios\n${nombreDelNovio} se caso con ${consagrado}`
+					await fs.appendFile('./lib/config/Utilidades/casamiento.txt', `\n\n${nombreDelNovio} casado con ${consagrado}`)
+					await kill.sendFile(from, './lib/media/img/boda.jpg', 'boda.jpg', `${bodasi} \nles doy ${lvpc} años de duracion`, id)
+					await kill.sendPtt(from, `./lib/media/audio/casamiento.mp3`)
+				} else return await kill.reply(from, 'Porfavor seleccione a una persona con la que desea casarse', id)
 			
+			break
+
+		case 'bodas':
+			const bodaList = await fs.readFileSync('./lib/config/Utilidades/casamiento.txt').toString()
+			await kill.reply(from, bodaList, id)
+			break
 		// Para usar a base remova o /* e o */ e bote um nome dentro das aspas da case e em seguida sua mensagem dentro das aspas na frente do from
 		/*case 'Nome do comando sem espaços':
 			await kill.reply(from, 'Sua mensagem', id)
