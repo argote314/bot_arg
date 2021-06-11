@@ -112,9 +112,10 @@ const start = async (kill = new Client()) => {
 							.setColor('title', '#00FFFF')
 							.setBackground('https://i.pinimg.com/originals/3d/4b/03/3d4b033c01c30b714f8710a57f46d900.jpg')
 							.toAttachment()
-							//await kill.sendPtt(event.chat, `./lib/media/audio/welcome.mp3`)
+							
 						const base64 = `data:image/png;base64,${welcomer.toBuffer().toString('base64')}`
 						await kill.sendFile(event.chat, base64, 'welcome.png', `*❐❯─᤻─⃟᤻─᤻─᤻─᤻─᤻「⃞🌎⃞」─᤻─᤻─᤻─⃟᤻─᤻─᤻❮❐*\n\nBienvenido ${pushname}! A\n*┏━┅┅┅┅┅┅┄⟞⟦⟝┉┉┅┅┅┅━┓*\n${name}\n*┗━┅┅┅┅┅┅┅┄⟞⟦⟝┅┅┅┉┉━┛*\n\n_*Deseo que te diviertas y que sigas nuestras reglas!*_ ✅ \n\n*S᤻i᤻ n᤻e᤻c᤻e᤻s᤻it᤻a᤻ a᤻y᤻᤻u᤻d᤻a᤻*\n*❐⃟✓* Comuniquese con un administrador\n*❐⃟✓* Escriba ${config.prefix}menu para ver las opciones`)
+						await kill.sendPtt(event.chat, `./lib/media/audio/welcome.mp3`)
 						console.log(color('[ENTROU]', 'red'), color(`${pushname} - (${event.who.replace('@c.us', '')}) entro al grupo ${name}...`, 'yellow'))
 					}
 				} else if (event.action == 'remove' && isWelkom && !isMyBot) {
