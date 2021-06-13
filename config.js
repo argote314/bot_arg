@@ -1233,6 +1233,7 @@ module.exports = kconfig = async (kill, message) => {
 					nsfw_.push(groupId)
 					await fs.writeFileSync('./lib/config/Grupos/NSFW.json', JSON.stringify(nsfw_))
 					await kill.reply(from, mess.enabled(), id)
+					await kill.sendPtt(from, `./lib/media/audio/nsfwon.mp3`)
 				} else if (args[0] == 'off') {
 					if (!nsfw_.includes(groupId)) return await kill.reply(from, mess.jadisabled(), id)
 					nsfw_.splice(groupId, 1)
